@@ -1,0 +1,88 @@
+import java.util.Scanner;
+
+public class ScientificCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to the Scientific Calculator");
+        System.out.println("-----------------------------------");
+
+        while (true) {
+            System.out.println("Available Operations:");
+            System.out.println("1. Addition");
+            System.out.println("2. Subtraction");
+            System.out.println("3. Multiplication");
+            System.out.println("4. Division");
+            System.out.println("5. Square Root");
+            System.out.println("6. Exponentiation");
+            System.out.println("7. Exit");
+
+            System.out.print("Enter your choice (1-7): ");
+            int choice = scanner.nextInt();
+
+            if (choice == 7) {
+                System.out.println("Goodbye!");
+                break;
+            }
+
+            double result = 0.0;
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter first number: ");
+                    double addOperand1 = scanner.nextDouble();
+                    System.out.print("Enter second number: ");
+                    double addOperand2 = scanner.nextDouble();
+                    result = addOperand1 + addOperand2;
+                    break;
+                case 2:
+                    System.out.print("Enter first number: ");
+                    double subOperand1 = scanner.nextDouble();
+                    System.out.print("Enter second number: ");
+                    double subOperand2 = scanner.nextDouble();
+                    result = subOperand1 - subOperand2;
+                    break;
+                case 3:
+                    System.out.print("Enter first number: ");
+                    double mulOperand1 = scanner.nextDouble();
+                    System.out.print("Enter second number: ");
+                    double mulOperand2 = scanner.nextDouble();
+                    result = mulOperand1 * mulOperand2;
+                    break;
+                case 4:
+                    System.out.print("Enter numerator: ");
+                    double divNumerator = scanner.nextDouble();
+                    System.out.print("Enter denominator: ");
+                    double divDenominator = scanner.nextDouble();
+                    if (divDenominator == 0) {
+                        System.out.println("Error: Division by zero!");
+                        continue;
+                    }
+                    result = divNumerator / divDenominator;
+                    break;
+                case 5:
+                    System.out.print("Enter a number: ");
+                    double sqrtOperand = scanner.nextDouble();
+                    if (sqrtOperand < 0) {
+                        System.out.println("Error: Square root of a negative number!");
+                        continue;
+                    }
+                    result = Math.sqrt(sqrtOperand);
+                    break;
+                case 6:
+                    System.out.print("Enter base: ");
+                    double base = scanner.nextDouble();
+                    System.out.print("Enter exponent: ");
+                    double exponent = scanner.nextDouble();
+                    result = Math.pow(base, exponent);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a number between 1 and 7.");
+            }
+
+            System.out.println("Result: " + result);
+        }
+
+        scanner.close();
+    }
+}
