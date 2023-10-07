@@ -1,0 +1,77 @@
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+	
+public class NoteTakingApplication {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<String> notes = new ArrayList<>();
+
+        System.out.println("Welcome to the Note-taking Application");
+        System.out.println("---------------------------------------");
+
+        while (true) {
+            System.out.println("\nAvailable Actions:");
+            System.out.println("1. Create a New Note");
+            System.out.println("2. View All Notes");
+            System.out.println("3. Delete a Note");
+            System.out.println("4. Exit");
+
+            System.out.print("Enter your choice (1-4): ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter your note: ");
+                    String newNote = scanner.nextLine();
+                    notes.add(newNote);
+                    System.out.println("Note added successfully!");
+                    break;
+                case 2:
+                    if (notes.isEmpty()) {
+                        System.out.println("No notes available.");
+                    } else {
+                        System.out.println("Your Notes:");
+                        for (int i = 0; i < notes.size(); i++) {
+                            System.out.println((i + 1) + ". " + notes.get(i));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (notes.isEmpty()) {
+                        System.out.println("No notes available to delete.");
+                    } else {
+                        System.out.print("Enter the note number to delete: ");
+                        int noteToDelete = scanner.nextInt();
+                        if (noteToDelete >= 1 && noteToDelete <= notes.size()) {
+                            notes.remove(noteToDelete - 1);
+                            System.out.println("Note deleted successfully!");
+                        } else {
+                            System.out.println("Invalid note number.");
+                        }
+                    }
+                    break;
+                case 4:
+                    saveNotesToFile(notes);
+                    System.out.println("Goodbye!");
+                    scanner.close();
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a number between 1 and 4.");
+            }
+        }
+    }
+
+    private static void saveNotesToFile(List<String> notes) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("notes.txt"))) {
+            for (String note : notes) {
+                writer.println(note);
+            }
+        } catch (IOException e) {
+            System.err.println("Error saving notes to file: " + e.getMessage());
+        }
+    }
+}
