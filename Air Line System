@@ -1,0 +1,100 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Flight {
+    private String flightNumber;
+    private String source;
+    private String destination;
+    private int availableSeats;
+    private boolean availableForBooking;
+
+    public Flight(String flightNumber, String source, String destination, int availableSeats, boolean availableForBooking) {
+        this.flightNumber = flightNumber;
+        this.source = source;
+        this.destination = destination;
+        this.availableSeats = availableSeats;
+        this.availableForBooking = availableForBooking;
+    }
+
+    public String getFlightNumber() {
+        return flightNumber;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public int getAvailableSeats() {
+        return availableSeats;
+    }
+
+    public boolean isAvailableForBooking() {
+        return availableForBooking;
+    }
+
+    public void bookSeat() {
+        if (availableSeats > 0 && availableForBooking) {
+            availableSeats--;
+            System.out.println("Seat booked successfully.");
+        } else {
+            System.out.println("No available seats on this flight or not available for booking.");
+        }
+    }
+}
+
+class ReservationSystem {
+    private List<Flight> flights;
+
+    public ReservationSystem() {
+        flights = new ArrayList<>();
+    }
+
+    public void addFlight(Flight flight) {
+        flights.add(flight);
+    }
+
+    public void displayAvailableFlights() {
+        System.out.println("Available Flights:");
+        for (Flight flight : flights) {
+            System.out.println("Flight Number: " + flight.getFlightNumber());
+            System.out.println("Source: " + flight.getSource());
+            System.out.println("Destination: " + flight.getDestination());
+            System.out.println("Available Seats: " + flight.getAvailableSeats());
+            System.out.println("Available for Booking: " + flight.isAvailableForBooking());
+            System.out.println();
+        }
+    }
+
+    public void bookFlight(String flightNumber) {
+        for (Flight flight : flights) {
+            if (flight.getFlightNumber().equals(flightNumber)) {
+                flight.bookSeat();
+                return;
+            }
+        }
+        System.out.println("Flight not found.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        ReservationSystem reservationSystem = new ReservationSystem();
+
+        
+        reservationSystem.addFlight(new Flight("FL001", "Mumbai", "Pune", 100, true));
+        reservationSystem.addFlight(new Flight("FL002", "Pune", "Kolhapur", 80, true));
+        reservationSystem.addFlight(new Flight("FL003", "Kolhapur", "Delhi", 120, true));
+
+        
+        reservationSystem.displayAvailableFlights();
+
+      
+        reservationSystem.bookFlight("FL001");
+        reservationSystem.bookFlight("FL002");
+        reservationSystem.displayAvailableFlights();
+    }
+}
